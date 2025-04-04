@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import arrow from './../assets/images/arrow.svg';
 import edit from './../assets/images/edit.svg';
 import trash from './../assets/images/trash.svg';
@@ -15,12 +16,12 @@ export default function Home() {
 			<div className="mt-8 flex flex-col gap-4">
 				<div className="flex justify-between items-center">
 					<strong className="text-gray-800 text-2xl">3 contacts</strong>
-					<a
-						href="/"
+					<Link
+						to="/new-contact"
 						className="text-base text-primary-main decoration-0 font-bold border-2 px-4 py-2 rounded-sm hover:bg-primary-main hover:text-white transition-all duration-200 ease-in-out"
 					>
 						New contact
-					</a>
+					</Link>
 				</div>
 
 				<div className="w-full h-0.5 bg-gray-200" />
@@ -51,66 +52,12 @@ export default function Home() {
 							</div>
 
 							<div className="flex items-center gap-2">
-								<a href="/">
+								<Link to="/edit-contact/1">
 									<img src={edit} alt="Edit icon" />
-								</a>
+								</Link>
 								<button type="button" className="bg-transparent border-none">
 									<img src={trash} alt="Trash icon" />
 								</button>
-							</div>
-						</div>
-						<div className="flex flex-col gap-4">
-							<div className="bg-white flex items-center justify-between shadow-md p-4 rounded-sm">
-								<div>
-									<div className="flex items-center gap-2">
-										<strong>Arthur Rios</strong>
-										<small className="bg-primary-lighter text-primary-main font-bold uppercase p-1 rounded-sm">
-											instagram
-										</small>
-									</div>
-									<span className="block text-sm text-gray-200">
-										arthur@email.com
-									</span>
-									<span className="block text-sm text-gray-200">
-										(61) 99999-9999
-									</span>
-								</div>
-
-								<div className="flex items-center gap-2">
-									<a href="/">
-										<img src={edit} alt="Edit icon" />
-									</a>
-									<button type="button" className="bg-transparent border-none">
-										<img src={trash} alt="Trash icon" />
-									</button>
-								</div>
-							</div>
-						</div>
-						<div className="flex flex-col gap-4">
-							<div className="bg-white flex items-center justify-between shadow-md p-4 rounded-sm">
-								<div>
-									<div className="flex items-center gap-2">
-										<strong>Arthur Rios</strong>
-										<small className="bg-primary-lighter text-primary-main font-bold uppercase p-1 rounded-sm">
-											instagram
-										</small>
-									</div>
-									<span className="block text-sm text-gray-200">
-										arthur@email.com
-									</span>
-									<span className="block text-sm text-gray-200">
-										(61) 99999-9999
-									</span>
-								</div>
-
-								<div className="flex items-center gap-2">
-									<a href="/">
-										<img src={edit} alt="Edit icon" />
-									</a>
-									<button type="button" className="bg-transparent border-none">
-										<img src={trash} alt="Trash icon" />
-									</button>
-								</div>
 							</div>
 						</div>
 					</div>
