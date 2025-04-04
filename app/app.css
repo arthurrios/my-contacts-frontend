@@ -15,9 +15,9 @@
   --color-primary-light: #6674F4;
   --color-primary-lighter: #E0E3FF;
 
-  --color-red-800: #F63131;
-  --color-red-500: #FC5050;
-  --color-red-300: #F97171;
+  --color-danger-dark: #F63131;
+  --color-danger-main: #FC5050;
+  --color-danger-light: #F97171;
 
   --font-sora: "Sora", sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,

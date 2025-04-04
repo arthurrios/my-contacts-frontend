@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import arrow from './../assets/images/arrow.svg';
 import edit from './../assets/images/edit.svg';
 import trash from './../assets/images/trash.svg';
+import { Modal } from '~/components/modal';
 
 export default function Home() {
 	return (
@@ -63,6 +64,7 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
+			<Modal buttonLabel="Delete" danger />
 		</>
 	);
 }

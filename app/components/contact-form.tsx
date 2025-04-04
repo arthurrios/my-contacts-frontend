@@ -26,9 +26,7 @@ export function ContactForm({ buttonLabel }: ContactFormProps) {
 				</Select>
 			</FormGroup>
 
-			<div className="mt-6">
-				<Button title={buttonLabel} />
-			</div>
+			<Button title={buttonLabel} className="mt-6" />
 		</form>
 	);
 }
