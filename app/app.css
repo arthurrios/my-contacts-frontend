@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&family=Sora:wght@100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-gray-900: #222;
+  --color-gray-600: #7A7A7A;
+  --color-gray-200: #BCBCBC;
+  --color-gray-100: #E6E6E6;
+  --color-background: #F6F5FC;
+
+  --color-green-500: #51CA73;
+
+  --color-primary-dark: #3346F0;
+  --color-primary-main: #5061FC;
+  --color-primary-light: #6674F4;
+  --color-primary-lighter: #E0E3FF;
+
+  --color-red-800: #F63131;
+  --color-red-500: #FC5050;
+  --color-red-300: #F97171;
+
+  --font-sora: "Sora", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+html,
+body {
+  @apply bg-background text-base font-sora;
+  color-scheme: light;
+}

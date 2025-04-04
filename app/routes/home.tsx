@@ -1,3 +1,11 @@
+import { ContactsList } from '~/components/contacts-list';
+import { Header } from '~/components/header';
+
 export default function Home() {
-	return <h1>MyContacts</h1>;
+	return (
+		<>
+			<Header />
+			<ContactsList />
+		</>
+	);
 }

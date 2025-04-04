@@ -1,0 +1,112 @@
+import arrow from './../assets/images/arrow.svg';
+import edit from './../assets/images/edit.svg';
+import trash from './../assets/images/trash.svg';
+
+export function ContactsList() {
+	return (
+		<div className="mt-8 flex flex-col gap-4">
+			<div className="flex justify-between items-center">
+				<strong className="text-gray-800 text-2xl">3 contacts</strong>
+				<a
+					href="/"
+					className="text-base text-primary-main decoration-0 font-bold border-2 px-4 py-2 rounded-sm hover:bg-primary-main hover:text-white transition-all duration-200 ease-in-out"
+				>
+					New contact
+				</a>
+			</div>
+
+			<div className="w-full h-0.5 bg-gray-200" />
+
+			<div>
+				<header className="mb-2">
+					<button type="button" className="flex gap-2 items-center">
+						<span className="font-bold text-primary-main">Name</span>
+						<img src={arrow} alt="Arrow icon" />
+					</button>
+				</header>
+
+				<div className="flex flex-col gap-4">
+					<div className="bg-white flex items-center justify-between shadow-md p-4 rounded-sm">
+						<div>
+							<div className="flex items-center gap-2">
+								<strong>Arthur Rios</strong>
+								<small className="bg-primary-lighter text-primary-main font-bold uppercase p-1 rounded-sm">
+									instagram
+								</small>
+							</div>
+							<span className="block text-sm text-gray-200">
+								arthur@email.com
+							</span>
+							<span className="block text-sm text-gray-200">
+								(61) 99999-9999
+							</span>
+						</div>
+
+						<div className="flex items-center gap-2">
+							<a href="/">
+								<img src={edit} alt="Edit icon" />
+							</a>
+							<button type="button" className="bg-transparent border-none">
+								<img src={trash} alt="Trash icon" />
+							</button>
+						</div>
+					</div>
+					<div className="flex flex-col gap-4">
+						<div className="bg-white flex items-center justify-between shadow-md p-4 rounded-sm">
+							<div>
+								<div className="flex items-center gap-2">
+									<strong>Arthur Rios</strong>
+									<small className="bg-primary-lighter text-primary-main font-bold uppercase p-1 rounded-sm">
+										instagram
+									</small>
+								</div>
+								<span className="block text-sm text-gray-200">
+									arthur@email.com
+								</span>
+								<span className="block text-sm text-gray-200">
+									(61) 99999-9999
+								</span>
+							</div>
+
+							<div className="flex items-center gap-2">
+								<a href="/">
+									<img src={edit} alt="Edit icon" />
+								</a>
+								<button type="button" className="bg-transparent border-none">
+									<img src={trash} alt="Trash icon" />
+								</button>
+							</div>
+						</div>
+					</div>
+					<div className="flex flex-col gap-4">
+						<div className="bg-white flex items-center justify-between shadow-md p-4 rounded-sm">
+							<div>
+								<div className="flex items-center gap-2">
+									<strong>Arthur Rios</strong>
+									<small className="bg-primary-lighter text-primary-main font-bold uppercase p-1 rounded-sm">
+										instagram
+									</small>
+								</div>
+								<span className="block text-sm text-gray-200">
+									arthur@email.com
+								</span>
+								<span className="block text-sm text-gray-200">
+									(61) 99999-9999
+								</span>
+							</div>
+
+							<div className="flex items-center gap-2">
+								<a href="/">
+									<img src={edit} alt="Edit icon" />
+								</a>
+								<button type="button" className="bg-transparent border-none">
+									<img src={trash} alt="Trash icon" />
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}
