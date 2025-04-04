@@ -1,3 +1,9 @@
+import { PageHeader } from '~/components/page-header';
+
 export default function EditContact() {
-	return <div></div>;
+	return (
+		<div>
+			<PageHeader title="Arthur Rios" />
+		</div>
+	);
 }
