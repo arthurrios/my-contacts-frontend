@@ -8,7 +8,7 @@ interface ModalProps {
 
 export function Modal({ buttonLabel, danger = false }: ModalProps) {
 	return (
-		<div className="bg-black/60 px-8 absolute flex items-center justify-center w-full h-full top-0 left-0 backdrop-blur-xs ">
+		<div className="bg-black/60 px-8 absolute flex items-center justify-center w-full h-full top-0 left-0 backdrop-blur-xs">
 			<div className="bg-white rounded-md p-6 shadow-md max-w-112.5 w-full">
 				<h1
 					className={clsx(
