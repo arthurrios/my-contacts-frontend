@@ -1,5 +1,5 @@
-import { ContactForm } from '~/components/contact-form';
-import { PageHeader } from '~/components/page-header';
+import { ContactForm } from 'app/components/contact-form';
+import { PageHeader } from 'app/components/page-header';
 
 export default function NewContact() {
 	return (

@@ -59,6 +59,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
 	return (
 		<>
+			<title>MyContacts</title>
 			<div className="w-full max-w-xl mx-auto">
 				<Header />
 				<Outlet />
