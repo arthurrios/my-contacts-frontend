@@ -2,7 +2,6 @@ import { Link } from 'react-router';
 import arrow from './../assets/images/arrow.svg';
 import edit from './../assets/images/edit.svg';
 import trash from './../assets/images/trash.svg';
-import { Loader } from '~/components/loader';
 
 export default function Home() {
 	return (
@@ -64,7 +63,6 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
-			<Loader />
 		</>
 	);
 }

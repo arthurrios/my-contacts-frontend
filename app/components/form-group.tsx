@@ -1,8 +1,21 @@
 import type { HTMLAttributes } from 'react';
 import { Input } from './input';
 
-interface FormGroupProps extends HTMLAttributes<HTMLDivElement> {}
+interface FormGroupProps extends HTMLAttributes<HTMLDivElement> {
+	error?: string | null;
+}
 
-export function FormGroup({ children, ...props }: FormGroupProps) {
-	return <div {...props}>{children}</div>;
+export function FormGroup({
+	children,
+	error = null,
+	...props
+}: FormGroupProps) {
+	return (
+		<div {...props}>
+			{children}
+			{error && (
+				<small className="text-danger-main mt-2 block text-xs">{error}</small>
+			)}
+		</div>
+	);
 }
