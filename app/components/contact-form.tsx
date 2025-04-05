@@ -5,6 +5,7 @@ import { Input } from './input';
 import { Select } from './select';
 import { isEmailValid } from '~/utils/is-email-valid';
 import { useErrors } from '~/hooks/useErrors';
+import { formatPhone } from '~/utils/format-phone';
 
 interface ContactFormProps {
 	buttonLabel: string;
@@ -38,12 +39,16 @@ export function ContactForm({ buttonLabel }: ContactFormProps) {
 		}
 	}
 
+	function handlePhoneChange(event: ChangeEvent<HTMLInputElement>) {
+		setPhone(formatPhone(event.target.value));
+	}
+
 	function handleSubmit(event: FormEvent) {
 		event.preventDefault();
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="flex flex-col gap-4">
+		<form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
 			<FormGroup error={getErrorMessageByFieldName('name')}>
 				<Input
 					placeholder="Name"
@@ -52,9 +57,10 @@ export function ContactForm({ buttonLabel }: ContactFormProps) {
 					error={!!getErrorMessageByFieldName('name')}
 				/>
 			</FormGroup>
-			<FormGroup>
+			<FormGroup error={getErrorMessageByFieldName('email')}>
 				<Input
 					placeholder="Email"
+					type="email"
 					value={email}
 					onChange={handleEmailChange}
 					error={!!getErrorMessageByFieldName('email')}
@@ -64,7 +70,8 @@ export function ContactForm({ buttonLabel }: ContactFormProps) {
 				<Input
 					placeholder="Phone"
 					value={phone}
-					onChange={(e) => setPhone(e.target.value)}
+					onChange={handlePhoneChange}
+					maxLength={15}
 				/>
 			</FormGroup>
 			<FormGroup>
