@@ -17,7 +17,10 @@ export function ContactForm({ buttonLabel }: ContactFormProps) {
 	const [phone, setPhone] = useState('');
 	const [category, setCategory] = useState('');
 
-	const { setError, removeError, getErrorMessageByFieldName } = useErrors();
+	const { errors, setError, removeError, getErrorMessageByFieldName } =
+		useErrors();
+
+	const isFormValid = name && !errors.length;
 
 	function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
 		setName(event.target.value);
@@ -51,7 +54,7 @@ export function ContactForm({ buttonLabel }: ContactFormProps) {
 		<form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
 			<FormGroup error={getErrorMessageByFieldName('name')}>
 				<Input
-					placeholder="Name"
+					placeholder="Name *"
 					value={name}
 					onChange={handleNameChange}
 					error={!!getErrorMessageByFieldName('name')}
@@ -81,7 +84,7 @@ export function ContactForm({ buttonLabel }: ContactFormProps) {
 				</Select>
 			</FormGroup>
 
-			<Button title={buttonLabel} className="mt-6" />
+			<Button title={buttonLabel} className="mt-6" disabled={!isFormValid} />
 		</form>
 	);
 }
