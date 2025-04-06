@@ -7,47 +7,55 @@ class HttpClient {
     this.baseURL = baseURL
   }
 
-  async get<T>(path: string) {
-    await delay(1500)
-
-    const response = await fetch(`${this.baseURL}${path}`)
-
-    let body: T | null = null
-
-    const contentType = response.headers.get('Content-Type')
-    if (contentType?.includes('application/json')) {
-      body = (await response.json()) as T
-    }
-
-    if (response.ok) {
-      return body
-    }
-
-    throw new APIError(response, body)
+  get<T>(path: string, options?: RequestInit) {
+    return this.makeRequest<T>(path, {
+      method: 'GET',
+      headers: options?.headers,
+    })
   }
 
-  async post<T>(path: string, body: T) {
+  post<T>(path: string, options?: RequestInit) {
+    return this.makeRequest<T>(path, {
+      method: 'POST',
+      body: options?.body as T,
+      headers: options?.headers,
+    })
+  }
+
+  async makeRequest<T>(
+    path: string,
+    options: { method: string; body?: T; headers?: HeadersInit },
+  ) {
     await delay(1500)
 
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-    })
+    const headers = new Headers()
+
+    if (options.body) {
+      headers.append('Content-Type', 'application/json')
+    }
+
+    if (options.headers) {
+      // biome-ignore lint/complexity/noForEach: <explanation>
+      Object.entries(options.headers).forEach(([key, value]) => {
+        headers.append(key, value as string)
+      })
+    }
 
     const response = await fetch(`${this.baseURL}${path}`, {
-      method: 'POST',
-      body: JSON.stringify(body),
+      method: options.method,
+      body: JSON.stringify(options.body),
       headers,
     })
 
-    let responseBody: T | null = null
+    let responseBody = null
 
     const contentType = response.headers.get('Content-Type')
     if (contentType?.includes('application/json')) {
-      responseBody = (await response.json()) as T
+      responseBody = await response.json()
     }
 
     if (response.ok) {
-      return responseBody
+      return responseBody as T
     }
 
     throw new APIError(response, responseBody)

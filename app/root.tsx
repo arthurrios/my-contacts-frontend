@@ -60,7 +60,7 @@ export default function App() {
   return (
     <>
       <title>MyContacts</title>
-      <div className="w-full max-w-xl mx-auto px-4">
+      <div className="w-full max-w-xl mx-auto px-4 pb-20">
         <Header />
         <Outlet />
       </div>
