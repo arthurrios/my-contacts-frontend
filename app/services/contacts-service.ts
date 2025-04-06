@@ -16,7 +16,7 @@ class ContactsService {
 
   async createContact(contact: ContactCreateDTO) {
     return this.httpClient.post<ContactCreateDTO>('/contacts', {
-      body: JSON.stringify(contact),
+      body: contact,
     })
   }
 }

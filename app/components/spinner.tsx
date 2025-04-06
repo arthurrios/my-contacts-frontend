@@ -6,6 +6,7 @@ const spinner = tv({
     variant: {
       loader: 'text-[90px] -indent-[9999px] mx-auto my-20 relative',
       input: 'text-[16px] right-4 top-6 absolute',
+      button: 'text-[16px]',
     },
   },
 

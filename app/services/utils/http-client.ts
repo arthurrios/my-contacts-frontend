@@ -7,14 +7,14 @@ class HttpClient {
     this.baseURL = baseURL
   }
 
-  get<T>(path: string, options?: RequestInit) {
+  get<T>(path: string, options?: { body?: T; headers?: HeadersInit }) {
     return this.makeRequest<T>(path, {
       method: 'GET',
       headers: options?.headers,
     })
   }
 
-  post<T>(path: string, options?: RequestInit) {
+  post<T>(path: string, options?: { body?: T; headers?: HeadersInit }) {
     return this.makeRequest<T>(path, {
       method: 'POST',
       body: options?.body as T,
