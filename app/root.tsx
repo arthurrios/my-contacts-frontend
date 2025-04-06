@@ -10,6 +10,7 @@ import {
 import type { Route } from './+types/root'
 import './app.css'
 import { Header } from './components/header'
+import { ToastContainer } from './components/Toast/toast-container'
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -64,6 +65,7 @@ export default function App() {
         <Header />
         <Outlet />
       </div>
+      <ToastContainer />
     </>
   )
 }

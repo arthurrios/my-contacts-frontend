@@ -3,6 +3,7 @@ import { PageHeader } from 'app/components/page-header'
 import { APIError } from '~/errors/api-error'
 import contactsService from '~/services/contacts-service'
 import type { ContactCreateDTO } from '~/services/dtos/contacts'
+import { toast } from '~/utils/toast'
 
 export default function NewContact() {
   async function handleSubmit(formData: ContactFormData) {
@@ -14,13 +15,18 @@ export default function NewContact() {
         category_id: formData.categoryId,
       }
 
-      const response = await contactsService.createContact(newContact)
+      await contactsService.createContact(newContact)
 
-      console.log('response', response)
+      toast({
+        text: 'Contact created successfully',
+        variant: 'success',
+      })
     } catch (error) {
-      console.error('Error creating contact:', error)
       if (error instanceof APIError) {
-        alert(error.message)
+        toast({
+          text: error.message,
+          variant: 'error',
+        })
       }
     }
   }
