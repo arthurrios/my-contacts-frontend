@@ -9,11 +9,19 @@ import { formatPhone } from '~/utils/format-phone'
 import categoriesService from '~/services/categories-service'
 import type { CategoryDTO } from '~/services/dtos/categories'
 
-interface ContactFormProps {
-  buttonLabel: string
+export interface ContactFormData {
+  name: string
+  email?: string
+  phone: string
+  categoryId?: string
 }
 
-export function ContactForm({ buttonLabel }: ContactFormProps) {
+interface ContactFormProps {
+  buttonLabel: string
+  onSubmit: (formData: ContactFormData) => void
+}
+
+export function ContactForm({ buttonLabel, onSubmit }: ContactFormProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -67,6 +75,8 @@ export function ContactForm({ buttonLabel }: ContactFormProps) {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
+
+    onSubmit({ name, email, phone, categoryId })
   }
 
   return (
@@ -112,7 +122,12 @@ export function ContactForm({ buttonLabel }: ContactFormProps) {
         </Select>
       </FormGroup>
 
-      <Button title={buttonLabel} className="mt-6" disabled={!isFormValid} />
+      <Button
+        title={buttonLabel}
+        type="submit"
+        className="mt-6"
+        disabled={!isFormValid}
+      />
     </form>
   )
 }

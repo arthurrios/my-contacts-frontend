@@ -1,4 +1,4 @@
-import type { ContactDTO } from './dtos/contacts'
+import type { ContactCreateDTO, ContactDTO } from './dtos/contacts'
 import HttpClient from './utils/http-client'
 
 class ContactsService {
@@ -12,6 +12,10 @@ class ContactsService {
       `/contacts?orderBy=${orderBy}`,
     )
     return response || []
+  }
+
+  async createContact(contact: ContactCreateDTO) {
+    return this.httpClient.post<ContactCreateDTO>('/contacts', contact)
   }
 }
 
