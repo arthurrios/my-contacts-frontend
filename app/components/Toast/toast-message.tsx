@@ -64,7 +64,13 @@ export function ToastMessage({ message, onRemoveMessage }: ToastMessageProps) {
 
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-    <div className={container()} onClick={handleRemoveToast}>
+    <div
+      className={container()}
+      onClick={handleRemoveToast}
+      tabIndex={0}
+      // biome-ignore lint/a11y/useSemanticElements: <explanation>
+      role="button"
+    >
       {icon && <img src={icon} alt="Toast icon" />}
       <strong className={text()}>{message.text}</strong>
     </div>
