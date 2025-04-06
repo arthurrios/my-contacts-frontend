@@ -1,6 +1,7 @@
 import { tv, type VariantProps } from 'tailwind-variants'
 import xCircleIcon from '~/assets/images/x-circle.svg'
 import checkCircle from '~/assets/images/check-circle.svg'
+import { useEffect } from 'react'
 
 export const toast = tv({
   slots: {
@@ -37,6 +38,7 @@ export interface ToastMessageProps {
     id: number
     text: string
     variant: ToastVariants['variant']
+    duration?: number
   }
   onRemoveMessage: (id: number) => void
 }
@@ -57,6 +59,14 @@ export function ToastMessage({ message, onRemoveMessage }: ToastMessageProps) {
     default:
       icon = undefined
   }
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      onRemoveMessage(message.id)
+    }, message.duration || 7000)
+
+    return () => clearTimeout(timeoutId)
+  }, [message, onRemoveMessage])
 
   function handleRemoveToast() {
     onRemoveMessage(message.id)

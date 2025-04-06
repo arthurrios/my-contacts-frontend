@@ -20,6 +20,7 @@ export default function NewContact() {
       toast({
         text: 'Contact created successfully',
         variant: 'success',
+        duration: 3000,
       })
     } catch (error) {
       if (error instanceof APIError) {
