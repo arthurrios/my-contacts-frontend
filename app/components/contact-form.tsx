@@ -14,9 +14,9 @@ import { isEmailValid } from '~/utils/is-email-valid'
 import { useErrors } from '~/hooks/useErrors'
 import { formatPhone } from '~/utils/format-phone'
 import categoriesService from '~/services/categories-service'
-import type { CategoryDTO } from '~/services/dtos/categories'
 import { Spinner } from './spinner'
-import type { ContactCreateDTO } from '~/services/dtos/contacts'
+import type { ContactDomainDTO } from '~/services/mappers/contact-mapper'
+import type { CategoryDomainDTO } from '~/services/mappers/category-mapper'
 
 export interface ContactFormData {
   name: string
@@ -26,13 +26,13 @@ export interface ContactFormData {
 }
 
 export interface ContactFormRef {
-  setFieldsValues: (contact: ContactCreateDTO) => void
+  setFieldsValues: (contact: ContactDomainDTO) => void
   resetFields: () => void
 }
 
 interface ContactFormProps {
   buttonLabel: string
-  onSubmit: (formData: ContactFormData) => Promise<void>
+  onSubmit: (formData: ContactDomainDTO) => Promise<void>
   ref?: RefObject<ContactFormRef | null>
 }
 
@@ -41,7 +41,7 @@ export function ContactForm({ buttonLabel, onSubmit, ref }: ContactFormProps) {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [categoryId, setCategoryId] = useState('')
-  const [categories, setCategories] = useState<CategoryDTO[]>([])
+  const [categories, setCategories] = useState<CategoryDomainDTO[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [isLoadingCategories, setIsLoadingCategories] = useState(false)
@@ -54,11 +54,11 @@ export function ContactForm({ buttonLabel, onSubmit, ref }: ContactFormProps) {
   useImperativeHandle(
     ref,
     () => ({
-      setFieldsValues: (contact: ContactCreateDTO) => {
+      setFieldsValues: (contact: ContactDomainDTO) => {
         setName(contact.name ?? '')
         setEmail(contact.email ?? '')
         setPhone(contact.phone ?? '')
-        setCategoryId(contact.category_id ?? '')
+        setCategoryId(contact.category.id ?? '')
       },
       resetFields: () => {
         setName('')
@@ -113,7 +113,7 @@ export function ContactForm({ buttonLabel, onSubmit, ref }: ContactFormProps) {
 
     setIsSubmitting(true)
 
-    await onSubmit({ name, email, phone, categoryId })
+    await onSubmit({ name, email, phone, category: { id: categoryId } })
 
     setIsSubmitting(false)
   }

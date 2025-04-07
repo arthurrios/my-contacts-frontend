@@ -1,4 +1,8 @@
-import type { ContactCreateDTO, ContactDTO } from './dtos/contacts'
+import {
+  contactMapper,
+  type ContactDomainDTO,
+  type ContactPersistanceDTO,
+} from './mappers/contact-mapper'
 import HttpClient from './utils/http-client'
 
 class ContactsService {
@@ -7,28 +11,38 @@ class ContactsService {
     this.httpClient = new HttpClient('http://localhost:3001')
   }
 
-  loadContacts(orderBy = 'asc') {
-    return this.httpClient.get<ContactDTO[]>(`/contacts?orderBy=${orderBy}`)
+  async loadContacts(orderBy = 'asc') {
+    const contacts = await this.httpClient.get<ContactDomainDTO[]>(
+      `/contacts?orderBy=${orderBy}`,
+    )
+    return contacts.map(contactMapper.toDomain)
   }
 
-  getContactById(id: string) {
-    return this.httpClient.get<ContactDTO>(`/contacts/${id}`)
+  async getContactById(id: string) {
+    const contact = await this.httpClient.get<ContactDomainDTO>(
+      `/contacts/${id}`,
+    )
+
+    return contactMapper.toDomain(contact)
   }
 
-  createContact(contact: ContactCreateDTO) {
-    return this.httpClient.post<ContactCreateDTO>('/contacts', {
-      body: contact,
+  createContact(contact: ContactDomainDTO) {
+    const body = contactMapper.toPersistance(contact)
+    return this.httpClient.post<ContactPersistanceDTO>('/contacts', {
+      body,
     })
   }
 
-  updateContact(id: string, contact: ContactCreateDTO) {
-    return this.httpClient.put<ContactCreateDTO>(`/contacts/${id}`, {
-      body: contact,
+  updateContact(id: string, contact: ContactDomainDTO) {
+    const body = contactMapper.toPersistance(contact)
+
+    return this.httpClient.put<ContactPersistanceDTO>(`/contacts/${id}`, {
+      body,
     })
   }
 
   deleteContact(id: string) {
-    return this.httpClient.delete<ContactDTO>(`/contacts/${id}`)
+    return this.httpClient.delete<ContactDomainDTO>(`/contacts/${id}`)
   }
 }
 

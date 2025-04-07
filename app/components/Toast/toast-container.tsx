@@ -34,7 +34,7 @@ export function ToastContainer() {
   }, [])
 
   return (
-    <div className="fixed bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col gap-4">
+    <div className="fixed bottom-12 left-1/2 -translate-x-1/2 z-30 flex flex-col gap-4">
       {messages.map((message) => (
         <ToastMessage
           key={message.id}

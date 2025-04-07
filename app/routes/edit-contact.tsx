@@ -1,8 +1,4 @@
-import {
-  ContactForm,
-  type ContactFormData,
-  type ContactFormRef,
-} from 'app/components/contact-form'
+import { ContactForm, type ContactFormRef } from 'app/components/contact-form'
 import { PageHeader } from 'app/components/page-header'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
@@ -10,7 +6,7 @@ import { Loader } from '~/components/loader'
 import { APIError } from '~/errors/api-error'
 import { useSafeAsyncAction } from '~/hooks/useSafeAsyncAction'
 import contactsService from '~/services/contacts-service'
-import type { ContactCreateDTO } from '~/services/dtos/contacts'
+import type { ContactDomainDTO } from '~/services/mappers/contact-mapper'
 import { toast } from '~/utils/toast'
 
 export default function EditContact() {
@@ -45,17 +41,11 @@ export default function EditContact() {
     loadContact()
   }, [id, navigate, safeAsyncAction])
 
-  async function handleSubmit(formData: ContactFormData) {
+  async function handleSubmit(formData: ContactDomainDTO) {
     try {
       if (!id) return
-      const newContact: ContactCreateDTO = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        category_id: formData.categoryId,
-      }
 
-      const contactData = await contactsService.updateContact(id, newContact)
+      const contactData = await contactsService.updateContact(id, formData)
 
       setContactName(contactData.name)
 

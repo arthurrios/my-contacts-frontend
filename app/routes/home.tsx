@@ -10,20 +10,20 @@ import clsx from 'clsx'
 
 import { Loader } from '../components/loader'
 import contactsService from '~/services/contacts-service'
-import type { ContactDTO } from '~/services/dtos/contacts'
+import type { ContactDomainDTO } from '~/services/mappers/contact-mapper'
 import { Button } from '~/components/button'
 import { Modal } from '~/components/modal'
 import { toast } from '~/utils/toast'
 
 export default function Home() {
-  const [contacts, setContacts] = useState<ContactDTO[]>([])
+  const [contacts, setContacts] = useState<ContactDomainDTO[]>([])
   const [orderBy, setOrderBy] = useState<'asc' | 'desc'>('asc')
   const [searchTerm, setSearchTerm] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
   const [contactBeingDeleted, setContactBeingDeleted] =
-    useState<ContactDTO | null>(null)
+    useState<ContactDomainDTO | null>(null)
   const [isLoadingDelete, setIsLoadingDelete] = useState(false)
 
   const filteredContacts = useMemo(() => {
@@ -68,14 +68,14 @@ export default function Home() {
     setContactBeingDeleted(null)
   }
 
-  function handleDeleteContact(contact: ContactDTO) {
+  function handleDeleteContact(contact: ContactDomainDTO) {
     setContactBeingDeleted(contact)
     setIsDeleteModalVisible(true)
   }
 
   async function handleConfirmDeleteContact() {
     try {
-      if (!contactBeingDeleted) return
+      if (!contactBeingDeleted?.id) return
       setIsLoadingDelete(true)
       await contactsService.deleteContact(contactBeingDeleted.id)
 
@@ -221,9 +221,9 @@ export default function Home() {
                   <div>
                     <div className="flex items-center gap-2">
                       <strong>{contact.name}</strong>
-                      {contact.category_name && (
+                      {contact.category.name && (
                         <small className="bg-primary-lighter text-primary-main font-bold uppercase p-1 rounded-sm">
-                          {contact.category_name}
+                          {contact.category.name}
                         </small>
                       )}
                     </div>

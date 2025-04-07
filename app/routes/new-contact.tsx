@@ -1,28 +1,17 @@
-import {
-  ContactForm,
-  type ContactFormData,
-  type ContactFormRef,
-} from 'app/components/contact-form'
+import { ContactForm, type ContactFormRef } from 'app/components/contact-form'
 import { PageHeader } from 'app/components/page-header'
 import { useRef } from 'react'
 import { APIError } from '~/errors/api-error'
 import contactsService from '~/services/contacts-service'
-import type { ContactCreateDTO } from '~/services/dtos/contacts'
+import type { ContactDomainDTO } from '~/services/mappers/contact-mapper'
 import { toast } from '~/utils/toast'
 
 export default function NewContact() {
   const contactFormRef = useRef<ContactFormRef | null>(null)
 
-  async function handleSubmit(formData: ContactFormData) {
+  async function handleSubmit(formData: ContactDomainDTO) {
     try {
-      const newContact: ContactCreateDTO = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        category_id: formData.categoryId,
-      }
-
-      await contactsService.createContact(newContact)
+      await contactsService.createContact(formData)
 
       contactFormRef.current?.resetFields()
 
