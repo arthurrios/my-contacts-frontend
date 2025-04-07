@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { Loader } from '~/components/loader'
 import { APIError } from '~/errors/api-error'
+import { useSafeAsyncAction } from '~/hooks/useSafeAsyncAction'
 import contactsService from '~/services/contacts-service'
 import type { ContactCreateDTO } from '~/services/dtos/contacts'
 import { toast } from '~/utils/toast'
@@ -19,25 +20,30 @@ export default function EditContact() {
 
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const safeAsyncAction = useSafeAsyncAction()
 
   useEffect(() => {
     async function loadContact() {
       try {
         const contactData = await contactsService.getContactById(id as string)
 
-        contactFormRef.current?.setFieldsValues(contactData)
-        setIsLoading(false)
-        setContactName(contactData.name)
+        safeAsyncAction(() => {
+          contactFormRef.current?.setFieldsValues(contactData)
+          setIsLoading(false)
+          setContactName(contactData.name)
+        })
       } catch {
-        navigate('/')
-        toast({
-          text: 'Contact not found',
-          variant: 'error',
+        safeAsyncAction(() => {
+          navigate('/')
+          toast({
+            text: 'Contact not found',
+            variant: 'error',
+          })
         })
       }
     }
     loadContact()
-  }, [id, navigate])
+  }, [id, navigate, safeAsyncAction])
 
   async function handleSubmit(formData: ContactFormData) {
     try {
