@@ -83,6 +83,10 @@ export function ContactForm({ buttonLabel, onSubmit }: ContactFormProps) {
     await onSubmit({ name, email, phone, categoryId })
 
     setIsSubmitting(false)
+    setName('')
+    setEmail('')
+    setPhone('')
+    setCategoryId('')
   }
 
   return (
