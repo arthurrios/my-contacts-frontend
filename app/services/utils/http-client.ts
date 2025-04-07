@@ -1,5 +1,4 @@
 import { APIError } from '~/errors/api-error'
-import { delay } from '~/utils/delay'
 
 class HttpClient {
   baseURL: string
@@ -41,7 +40,7 @@ class HttpClient {
     path: string,
     options: { method: string; body?: T; headers?: HeadersInit },
   ) {
-    await delay(1500)
+    // await delay(1500)
 
     const headers = new Headers()
 
