@@ -1,7 +1,7 @@
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const spinner = tv({
-  base: 'text-primary-main w-[1em] h-[1em] rounded-full transform translate-0 animate-[var(--animate-load-round)]',
+  base: 'text-primary-main w-[1em] h-[1em] rounded-full transform translate-0 animate-load-round',
   variants: {
     variant: {
       loader: 'text-[90px] -indent-[9999px] mx-auto my-20 relative',

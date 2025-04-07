@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { Button } from './button'
 import type { ReactNode } from 'react'
+import { useAnimatedUnmount } from '~/hooks/useAnimatedUnmount'
 
 interface ModalProps {
   title: string
@@ -25,12 +26,26 @@ export function Modal({
   visible,
   danger = false,
 }: ModalProps) {
-  if (!visible) {
+  const { shouldRender, animatedElementRef } = useAnimatedUnmount({ visible })
+
+  if (!shouldRender) {
     return null
   }
+
   return (
-    <div className="bg-black/60 px-8 fixed flex items-center justify-center w-full h-full top-0 left-0 backdrop-blur-xs">
-      <div className="bg-white rounded-md p-6 shadow-md max-w-112.5 w-full">
+    <div
+      ref={animatedElementRef}
+      className={clsx(
+        'bg-black/60 px-8 fixed flex items-center justify-center w-full h-full top-0 left-0 backdrop-blur-xs',
+        visible ? 'animate-fade-in' : 'animate-fade-out',
+      )}
+    >
+      <div
+        className={clsx(
+          'bg-white rounded-md p-6 shadow-md max-w-112.5 w-full',
+          visible ? 'animate-scale-in' : 'animate-scale-out',
+        )}
+      >
         <h1
           className={clsx(
             'text-2xl font-bold',
@@ -40,7 +55,6 @@ export function Modal({
           {title}
         </h1>
         <div className="mt-8">{children}</div>
-
         <footer className="mt-8 flex items-center justify-end gap-2">
           <button
             type="button"

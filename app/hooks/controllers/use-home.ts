@@ -54,7 +54,6 @@ export function useHome() {
 
   function handleCloseDeleteModal() {
     setIsDeleteModalVisible(false)
-    setContactBeingDeleted(null)
   }
 
   function handleDeleteContact(contact: ContactDomainDTO) {

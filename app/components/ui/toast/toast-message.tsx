@@ -2,11 +2,12 @@ import { tv, type VariantProps } from 'tailwind-variants'
 import xCircleIcon from '~/assets/images/x-circle.svg'
 import checkCircle from '~/assets/images/check-circle.svg'
 import { useEffect } from 'react'
+import clsx from 'clsx'
 
 export const toast = tv({
   slots: {
     container:
-      'rounded-sm shadow-md flex justify-center items-center gap-4 px-8 py-4 cursor-pointer',
+      'rounded-sm shadow-md flex justify-center items-center gap-4 px-8 py-4 cursor-pointer animate-message-in',
     message: 'text-white font-bold',
     icon: '',
   },
@@ -41,9 +42,16 @@ export interface ToastMessageProps {
     duration?: number
   }
   onRemoveMessage: (id: number) => void
+  isLeaving: boolean
+  animatedRef: React.RefObject<HTMLDivElement>
 }
 
-export function ToastMessage({ message, onRemoveMessage }: ToastMessageProps) {
+export function ToastMessage({
+  message,
+  onRemoveMessage,
+  isLeaving,
+  animatedRef,
+}: ToastMessageProps) {
   const { container, message: text } = toast({ variant: message.variant })
 
   let icon: string | undefined
@@ -52,7 +60,6 @@ export function ToastMessage({ message, onRemoveMessage }: ToastMessageProps) {
     case 'error':
       icon = xCircleIcon
       break
-
     case 'success':
       icon = checkCircle
       break
@@ -75,7 +82,8 @@ export function ToastMessage({ message, onRemoveMessage }: ToastMessageProps) {
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
     <div
-      className={container()}
+      ref={animatedRef}
+      className={clsx(container(), isLeaving && 'animate-message-out')}
       onClick={handleRemoveToast}
       tabIndex={0}
       // biome-ignore lint/a11y/useSemanticElements: <explanation>
