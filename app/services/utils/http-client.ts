@@ -30,6 +30,13 @@ class HttpClient {
     })
   }
 
+  delete<T>(path: string, options?: { headers?: HeadersInit }) {
+    return this.makeRequest<T>(path, {
+      method: 'DELETE',
+      headers: options?.headers,
+    })
+  }
+
   async makeRequest<T>(
     path: string,
     options: { method: string; body?: T; headers?: HeadersInit },

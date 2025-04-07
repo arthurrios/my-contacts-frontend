@@ -26,6 +26,10 @@ class ContactsService {
       body: contact,
     })
   }
+
+  deleteContact(id: string) {
+    return this.httpClient.delete<ContactDTO>(`/contacts/${id}`)
+  }
 }
 
 export default new ContactsService()
