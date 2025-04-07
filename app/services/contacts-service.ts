@@ -7,15 +7,22 @@ class ContactsService {
     this.httpClient = new HttpClient('http://localhost:3001')
   }
 
-  async loadContacts(orderBy = 'asc'): Promise<ContactDTO[]> {
-    const response = await this.httpClient.get<ContactDTO[]>(
-      `/contacts?orderBy=${orderBy}`,
-    )
-    return response || []
+  loadContacts(orderBy = 'asc') {
+    return this.httpClient.get<ContactDTO[]>(`/contacts?orderBy=${orderBy}`)
   }
 
-  async createContact(contact: ContactCreateDTO) {
+  getContactById(id: string) {
+    return this.httpClient.get<ContactDTO>(`/contacts/${id}`)
+  }
+
+  createContact(contact: ContactCreateDTO) {
     return this.httpClient.post<ContactCreateDTO>('/contacts', {
+      body: contact,
+    })
+  }
+
+  updateContact(id: string, contact: ContactCreateDTO) {
+    return this.httpClient.put<ContactCreateDTO>(`/contacts/${id}`, {
       body: contact,
     })
   }

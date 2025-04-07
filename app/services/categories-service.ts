@@ -7,9 +7,8 @@ class CategoriesService {
     this.httpClient = new HttpClient('http://localhost:3001')
   }
 
-  async listCategories(): Promise<CategoryDTO[]> {
-    const response = await this.httpClient.get<CategoryDTO[]>('/categories')
-    return response || []
+  listCategories() {
+    return this.httpClient.get<CategoryDTO[]>('/categories')
   }
 }
 

@@ -1,4 +1,11 @@
-import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
+import {
+  useEffect,
+  useImperativeHandle,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+  type RefObject,
+} from 'react'
 import { Button } from './button'
 import { FormGroup } from './form-group'
 import { Input } from './input'
@@ -9,6 +16,7 @@ import { formatPhone } from '~/utils/format-phone'
 import categoriesService from '~/services/categories-service'
 import type { CategoryDTO } from '~/services/dtos/categories'
 import { Spinner } from './spinner'
+import type { ContactCreateDTO } from '~/services/dtos/contacts'
 
 export interface ContactFormData {
   name: string
@@ -17,12 +25,18 @@ export interface ContactFormData {
   categoryId?: string
 }
 
+export interface ContactFormRef {
+  setFieldsValues: (contact: ContactCreateDTO) => void
+  resetFields: () => void
+}
+
 interface ContactFormProps {
   buttonLabel: string
   onSubmit: (formData: ContactFormData) => Promise<void>
+  ref?: RefObject<ContactFormRef | null>
 }
 
-export function ContactForm({ buttonLabel, onSubmit }: ContactFormProps) {
+export function ContactForm({ buttonLabel, onSubmit, ref }: ContactFormProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -36,6 +50,25 @@ export function ContactForm({ buttonLabel, onSubmit }: ContactFormProps) {
     useErrors()
 
   const isFormValid = name && !errors.length
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      setFieldsValues: (contact: ContactCreateDTO) => {
+        setName(contact.name ?? '')
+        setEmail(contact.email ?? '')
+        setPhone(contact.phone ?? '')
+        setCategoryId(contact.category_id ?? '')
+      },
+      resetFields: () => {
+        setName('')
+        setEmail('')
+        setPhone('')
+        setCategoryId('')
+      },
+    }),
+    [],
+  )
 
   useEffect(() => {
     async function loadCategories() {
@@ -83,10 +116,6 @@ export function ContactForm({ buttonLabel, onSubmit }: ContactFormProps) {
     await onSubmit({ name, email, phone, categoryId })
 
     setIsSubmitting(false)
-    setName('')
-    setEmail('')
-    setPhone('')
-    setCategoryId('')
   }
 
   return (

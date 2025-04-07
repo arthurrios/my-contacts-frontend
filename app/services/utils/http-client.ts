@@ -22,6 +22,14 @@ class HttpClient {
     })
   }
 
+  put<T>(path: string, options?: { body?: T; headers?: HeadersInit }) {
+    return this.makeRequest<T>(path, {
+      method: 'PUT',
+      body: options?.body as T,
+      headers: options?.headers,
+    })
+  }
+
   async makeRequest<T>(
     path: string,
     options: { method: string; body?: T; headers?: HeadersInit },
