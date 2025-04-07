@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import arrow from './../assets/images/arrow.svg'
+import arrow from '../../assets/images/arrow.svg'
 
 interface PageHeaderProps {
   title: string

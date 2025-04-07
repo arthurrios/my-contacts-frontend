@@ -1,5 +1,5 @@
 import type { SelectHTMLAttributes } from 'react'
-import dropdownArrow from '../assets/images/dropdown-arrow.svg'
+import dropdownArrow from '../../assets/images/dropdown-arrow.svg'
 import clsx from 'clsx'
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {

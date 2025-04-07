@@ -1,4 +1,4 @@
-import type { ToastVariants } from '~/components/Toast/toast-message'
+import type { ToastVariants } from '~/components/ui/toast/toast-message'
 import { EventManager } from '~/lib/event-manager'
 
 export const toastEventManager = new EventManager()

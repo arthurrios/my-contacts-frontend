@@ -1,6 +1,6 @@
-import { ContactForm } from 'app/components/contact-form'
-import { PageHeader } from 'app/components/page-header'
-import { Loader } from '~/components/loader'
+import { ContactForm } from '~/components/app/contact-form'
+import { PageHeader } from '~/components/app/page-header'
+import { Loader } from '~/components/ui/loader'
 import { useEditContact } from '~/hooks/controllers/use-edit-contact'
 
 export default function EditContact() {

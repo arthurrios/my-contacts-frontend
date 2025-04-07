@@ -9,8 +9,8 @@ import {
 
 import type { Route } from './+types/root'
 import './app.css'
-import { Header } from './components/header'
-import { ToastContainer } from './components/Toast/toast-container'
+import { Header } from './components/app/header'
+import { ToastContainer } from './components/ui/toast/toast-container'
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

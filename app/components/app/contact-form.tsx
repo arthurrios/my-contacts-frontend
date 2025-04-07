@@ -2,11 +2,11 @@ import {
   useContactForm,
   type ContactFormRef,
 } from '~/hooks/controllers/use-contact-form'
-import { Button } from './button'
-import { FormGroup } from './form-group'
-import { Input } from './input'
-import { Select } from './select'
-import { Spinner } from './spinner'
+import { Button } from '../ui/button'
+import { FormGroup } from '../ui/form-group'
+import { Input } from '../ui/input'
+import { Select } from '../ui/select'
+import { Spinner } from '../ui/spinner'
 import type { ContactDomainDTO } from '~/services/mappers/contact-mapper'
 import type { RefObject } from 'react'
 

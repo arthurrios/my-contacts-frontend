@@ -1,5 +1,5 @@
-import { ContactForm } from 'app/components/contact-form'
-import { PageHeader } from 'app/components/page-header'
+import { ContactForm } from '~/components/app/contact-form'
+import { PageHeader } from '~/components/app/page-header'
 import { useNewContact } from '~/hooks/controllers/use-new-contact'
 
 export default function NewContact() {
