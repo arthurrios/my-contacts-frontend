@@ -1,7 +1,7 @@
 import { tv, type VariantProps } from 'tailwind-variants'
 import xCircleIcon from '~/assets/images/x-circle.svg'
 import checkCircle from '~/assets/images/check-circle.svg'
-import { useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import clsx from 'clsx'
 
 export const toast = tv({
@@ -46,7 +46,7 @@ export interface ToastMessageProps {
   animatedRef: React.RefObject<HTMLDivElement>
 }
 
-export function ToastMessage({
+export const ToastMessage = memo(function ToastMessage({
   message,
   onRemoveMessage,
   isLeaving,
@@ -54,24 +54,20 @@ export function ToastMessage({
 }: ToastMessageProps) {
   const { container, message: text } = toast({ variant: message.variant })
 
+  console.log('toast renderizou', message.id)
+
   let icon: string | undefined
 
-  switch (message.variant) {
-    case 'error':
-      icon = xCircleIcon
-      break
-    case 'success':
-      icon = checkCircle
-      break
-    default:
-      icon = undefined
+  if (message.variant === 'error') {
+    icon = xCircleIcon
+  } else if (message.variant === 'success') {
+    icon = checkCircle
   }
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       onRemoveMessage(message.id)
     }, message.duration || 7000)
-
     return () => clearTimeout(timeoutId)
   }, [message, onRemoveMessage])
 
@@ -93,4 +89,4 @@ export function ToastMessage({
       <strong className={text()}>{message.text}</strong>
     </div>
   )
-}
+})
